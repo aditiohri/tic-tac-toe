@@ -21,7 +21,7 @@ console.log(td)
 // console.log(gameBoard)
 
 /*----- event listeners -----*/
-document.getElementsByTagName('tictactoe')
+document.getElementById('tictactoe')
     .addEventListener('click', handleTDClick)
 
 /*----- functions -----*/
@@ -29,7 +29,7 @@ document.getElementsByTagName('tictactoe')
 // function init();
 
 function handleTDClick(evt) {
-    console.log(evt.target.textContent)
+    console.log(document.getElementsByClassName('firstrow'));
 }
 
 function render() {
