@@ -29,7 +29,7 @@ document.getElementById('tictactoe')
 // function init();
 
 function handleTDClick(evt) {
-    console.log(document.getElementsByClassName('firstrow'));
+    console.log(evt.path["0"].id);
 }
 
 function render() {
