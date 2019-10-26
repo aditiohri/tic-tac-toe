@@ -10,9 +10,9 @@ const winCombo = [
     ["one", "five", "nine"],
     ["three", "five", "seven"],
  ];
-//compare playCombo with winCombo to determine winner
-// cannot strictly compare array
-// create loop to compare values with playCombo
+
+
+
 const playerO = "O";
 const playerX = "X";
 
@@ -27,9 +27,9 @@ let message = document.getElementById('message');
 let turn = document.getElementById('turn');
 let td = document.querySelectorAll('td');
 let gameBoard = document.getElementById('tictactoe');
-// console.log(td)
-// console.log(turn)
-// console.log(gameBoard)
+let turnEl = document.getElementById('turn');
+let button = document.getElementsByTagName('button');
+
 
 /*----- event listeners -----*/
 document.getElementById('tictactoe')
@@ -39,14 +39,13 @@ document.getElementById('tictactoe')
 // init();
 
 function handleTDClick(evt) {
-    // track id of clicked td
     let playLetter = document.getElementById(evt.path["0"].id);
-    // determine playerX - odd playCount or playerO - even
     playCount.push(evt.target.value);
-    // playCount.push(playNum);
-    console.log(playCount);
+    renderTurnMessage();
     return (playCount.length % 2 ? playLetter.textContent = "X" : playLetter.textContent = "O");
     // playCombo.push(playLetter.id);
+    // do the above for each player? 
+    // make it impossible for a player to change the value of the previous play on a td
 
 }
 
@@ -61,9 +60,16 @@ function handleTDClick(evt) {
 
 // }
 
-// function renderTurnMessage() {
+function renderTurnMessage() {
+    return (playCount.length % 2 ? turnEl.innerHTML = `Your turn: <br> Player O` : turnEl.innerHTML = `Your turn: <br> Player X`)
+}
 
-// }
+// create a message for winner
+// replay button clears the gameboard
+// create separate arrays for O and X position plays
+// compare with winning count
+// cannot strictly compare array
+// create loop to compare values 
 
 function render() {
 	renderHands();
