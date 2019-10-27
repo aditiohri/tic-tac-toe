@@ -46,12 +46,30 @@ function handleTDClick(evt) {
     let playLetter = document.getElementById(evt.path["0"].id);
     playCount.push(evt.target.value);
     renderTurnMessage();
-    return (playCount.length % 2 ? playLetter.textContent = "X" : playLetter.textContent = "O");
-    // playCombo.push(playLetter.id);
-    // do the above for each player? 
-    // make it impossible for a player to change the value of the previous play on a td
+    if (playLetter.textContent === ("X")) {
+        return 
+    } else if (playLetter.textContent === ("O")) {
+        return 
+    } 
+    else if (playCount.length % 2 === 1) {
+        playLetter.textContent = "X";
+        console.log(playLetter.textContent);
+    } else if (playCount.length % 2 === 0) {
+        playLetter.textContent = "O";
+        console.log(playLetter.textContent);
+    // } else if (playLetter.textContent === "X" || "O") {
+    //  return   
+    // }
+
+    }
+ return   
+};
+ 
+    // to resolve:
+    // alternating message consistent with clicks
+    // tds disappear when player clicks away from td but in grid section
     
-}
+
 
 
 function renderTurnMessage() {
