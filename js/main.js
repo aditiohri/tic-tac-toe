@@ -19,7 +19,11 @@ const playerX = "X";
 
 /*----- app's state (variables) -----*/
 
-let playLetter = []; let playCount = []; let playCombo = [];
+let playLetter = []; 
+let playCount = []; 
+let playCombo = []; 
+let playerXScore = []; 
+let playerOScore = [];
 
 
 /*----- cached element references -----*/
@@ -34,48 +38,56 @@ let turnEl = document.getElementById('turn');
 
 document.getElementById('tictactoe')
     .addEventListener('click', handleTDClick);
+    
+// document.querySelectorAll('td').addEventListener('click', handleTDClick);
 
 document.getElementById('replay')
     .addEventListener('click', rePlay);
 
     
 /*----- functions -----*/
-// init();
 
 function handleTDClick(evt) {
+   if (evt.target.tagName !== "TD") return;
     let playLetter = document.getElementById(evt.path["0"].id);
+    console.log(evt.path["0"].id);
+    console.log(evt.target);
+    console.log(evt);
     playCount.push(evt.target.value);
-    renderTurnMessage();
-    if (playLetter.textContent === ("X")) {
-        return 
-    } else if (playLetter.textContent === ("O")) {
+    // create turn function
+    // renderTurnMessage();
+    if (playLetter.textContent === ("X") || (playLetter.textContent === ("O"))) {
         return 
     } 
     else if (playCount.length % 2 === 1) {
-        playLetter.textContent = "X";
-        console.log(playLetter.textContent);
+        playLetter.textContent = playerX;
+        playerXScore.push(playLetter.id)
+        // console.log(playLetter.textContent);
+        // console.log(playLetter.id);
     } else if (playCount.length % 2 === 0) {
-        playLetter.textContent = "O";
-        console.log(playLetter.textContent);
-    // } else if (playLetter.textContent === "X" || "O") {
-    //  return   
-    // }
+        playLetter.textContent = playerO;
+        playerOScore.push(playLetter.id)
+        // console.log(playLetter.textContent);
+        // console.log(playLetter.id);
+  
+
 
     }
  return   
 };
  
     // to resolve:
-    // alternating message consistent with clicks
+    // alternating message consistent with player
     // tds disappear when player clicks away from td but in grid section
-    
-
-
-
+  
 function renderTurnMessage() {
-    return (playCount.length % 2 ? turnEl.innerHTML = `Your turn: <br> Player O` : turnEl.innerHTML = `Your turn: <br> Player X`)
-}
-        
+    if (playLetter.textContent = playerX) {
+        turnEl.innerHTML = `Your turn: <br> Player O` 
+    } if (playLetter.textContent = playerO) {
+        turnEl.innerHTML = `Your turn: <br> Player X`
+
+    }
+} 
 // create a message for winner
         
 // replay button clears the gameboard
@@ -87,18 +99,13 @@ function rePlay() {
     turnEl.innerHTML = `Your turn: <br> Player X`;
 }
 
-
-// create separate arrays for O and X position plays
+// solution to double clicking: onclick this disabled true in html
+// create separate arrays for O and X position plays // sort
 // compare with winning count
-// cannot strictly compare array
+// cannot strictly compare array //flatmap //mapfilter //reduce //check arrays lab
 // create loop to compare values 
+// call all functions in init
 
-function render() {
-	renderHands();
-	renderControls();
-	if (winner) {
-		renderWinnerMessage();
-	} else {
-		renderTurnMessage();
-	}
+function init() {
+    //
 }
