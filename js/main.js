@@ -19,11 +19,12 @@ const playerX = "X";
 
 /*----- app's state (variables) -----*/
 
-let playLetter = []; 
 let playCount = []; 
 let playCombo = []; 
 let playerXScore = []; 
 let playerOScore = [];
+let playId = [];
+let playSpace = [];
 
 
 /*----- cached element references -----*/
@@ -32,80 +33,76 @@ let turn = document.getElementById('turn');
 let td = document.querySelectorAll('td');
 let gameBoard = document.getElementById('tictactoe');
 let turnEl = document.getElementById('turn');
+let replayButton = document.getElementById('replay');
 
 
 /*----- event listeners -----*/
 
-document.getElementById('tictactoe')
-    .addEventListener('click', handleTDClick);
-    
-// document.querySelectorAll('td').addEventListener('click', handleTDClick);
-
-document.getElementById('replay')
-    .addEventListener('click', rePlay);
+// document.getElementById('tictactoe')
+//     
+gameBoard.addEventListener('click', handleTDClick);
+replayButton.addEventListener('click', init);
 
     
 /*----- functions -----*/
 
+// when gameboard event listener is activated
 function handleTDClick(evt) {
    if (evt.target.tagName !== "TD") return;
-    let playLetter = document.getElementById(evt.path["0"].id);
-    console.log(evt.path["0"].id);
-    console.log(evt.target);
-    console.log(evt);
-    playCount.push(evt.target.value);
-    // create turn function
-    // renderTurnMessage();
-    if (playLetter.textContent === ("X") || (playLetter.textContent === ("O"))) {
+    playSpace = evt.target;
+    playCount.push(playSpace);
+    play();
+
+}
+
+// play as X or O
+function play() {
+    if (playSpace.textContent === ("X") || (playSpace.textContent === ("O"))) {
         return 
     } 
     else if (playCount.length % 2 === 1) {
-        playLetter.textContent = playerX;
-        playerXScore.push(playLetter.id)
-        // console.log(playLetter.textContent);
-        // console.log(playLetter.id);
+        playSpace.textContent = playerX;
+        playerXScore.push(playSpace.id)
     } else if (playCount.length % 2 === 0) {
-        playLetter.textContent = playerO;
-        playerOScore.push(playLetter.id)
-        // console.log(playLetter.textContent);
-        // console.log(playLetter.id);
-  
-
+        playSpace.textContent = playerO;
+        playerOScore.push(playSpace.id)
 
     }
- return   
+    renderTurnMessage();
+    return   
 };
- 
-    // to resolve:
-    // alternating message consistent with player
-    // tds disappear when player clicks away from td but in grid section
-  
-function renderTurnMessage() {
-    if (playLetter.textContent = playerX) {
-        turnEl.innerHTML = `Your turn: <br> Player O` 
-    } if (playLetter.textContent = playerO) {
-        turnEl.innerHTML = `Your turn: <br> Player X`
 
+
+    // alternating message consistent with player
+function renderTurnMessage() {
+    if (playerXScore.length > playerOScore.length) {
+        turnEl.innerHTML = `Your turn: <br> Player O` 
+    } if (playerXScore.length < playerOScore.length) {
+        turnEl.innerHTML = `Your turn: <br> Player X`
+    } if (playerXScore.length === playerOScore.length) {
+        turnEl.innerHTML = `Your turn: <br> Player X`
+    } else if (playCount.length === max_number_plays) {
+        turnEl.innerHTML = `It's a draw!`
     }
 } 
 // create a message for winner
-        
-// replay button clears the gameboard
-function rePlay() {
-    playCount = []; 
-    td.forEach(function(box) {
-        box.textContent = EMPTY;
-    } );
-    turnEl.innerHTML = `Your turn: <br> Player X`;
-}
-
-// solution to double clicking: onclick this disabled true in html
+// create game logic
 // create separate arrays for O and X position plays // sort
 // compare with winning count
 // cannot strictly compare array //flatmap //mapfilter //reduce //check arrays lab
 // create loop to compare values 
-// call all functions in init
-
+        
+// initialize gameboard
+// replay button clears the gameboard
 function init() {
-    //
+    playCount = []; 
+    playCombo = []; 
+    playerXScore = []; 
+    playerOScore = [];
+    playId = [];
+    playSpace = [];
+    td.forEach(function(box) {
+        box.textContent = EMPTY;
+    } );
 }
+
