@@ -1,11 +1,11 @@
-/*----- constants -----*/
+ /*----- constants -----*/
 const max_number_plays = 9;
 const EMPTY = " ";
 const winCombo = [  ["one", "two", "three"], ["four", "five", "six"], ["seven", "eight", "nine"], ["one", "four", "seven"], ["two", "five", "eight"], ["three", "six", "nine"], ["one", "five", "nine"], ["three", "five", "seven"] ];
 const playerO = "O";
 const playerX = "X";
 /*----- app's state (variables) -----*/
-let playCount = []; let playCombo = []; let playerXScore = [];let playerOScore = []; let playSpace = [];
+let playCount = []; let playerXScore = [];let playerOScore = []; let playSpace = [];
 /*----- cached element references -----*/
 let message = document.getElementById('message');
 let turn = document.getElementById('turn');
@@ -47,12 +47,11 @@ function play() {
 function checkWin(playerScore) {
 for (let idx = 0; idx < winCombo.length; idx++) {
     for (let i = 0; i < winCombo[idx].length; i++) {
-        playCombo = 
-        // last three elements in playerScore
-        let isMatch = playerScore.includes(winCombo[idx][i]);
+        let playCombo = playerScore.slice(playerScore.length-3);
+        let isMatch = playCombo.includes(winCombo[idx++][i++]);
         // check in each subarray of winCombo
-        // compare with playerScore
-        // do the last three plays in playerScore include three of the subarray strings from the same subarray?
+        // compare with playerCombo for all three values in one idx
+        // if every value of playCombo can be found in one index of winCombo, then isMatch returns true
         console.log(isMatch);
         console.log(winCombo[idx][i]);
         if (isMatch && playSpace.textContent === playerX) {
@@ -87,4 +86,3 @@ function init() {
     } );
     renderTurnMessage();
 }
-
