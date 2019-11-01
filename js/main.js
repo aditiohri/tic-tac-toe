@@ -46,59 +46,58 @@ function play() {
     playSpace.textContent = playerX;
     playerXScore.push(playSpace.id);
     // console.log(playerXScore)
+    renderTurnMessage();
     if (playCount.length > 4) checkWin(playerXScore);
   } else if (playCount.length % 2 === 0) {
     playSpace.textContent = playerO;
     playerOScore.push(playSpace.id);
     // console.log(playerOScore)
+    renderTurnMessage();
     if (playCount.length > 4) checkWin(playerOScore);
   }
-  renderTurnMessage();
 }
 // win logic
 function checkWin(playerScore) {
-  //extract last three values of player's score //might not be === winCombo
-  console.log(playCombo)
-  console.log(winCombo)
-  console.log(playerScore) 
-  //turn object into an array
-  // let playWin = Object.values(playCombo);
-  // console.log(playWin, ': in checkWin before loop')
-  // //loop over arrays
-  let isWinning;
-  for (let idx = 0; idx < winCombo[idx]; idx++) { // loop winCombo
-    winCombo[idx].forEach(function(item, index){
-        // run thourgh winCombo subArray and and 
+    console.log('sanity check')
+  let isWinning = null;
+  winCombo.forEach(function(arr) {
+    //   for (let idx = 0; idx < winCombo[idx]; idx++) { 
+      console.log('sanity check2') 
+      // loop winCombo
+      console.log('arr:', arr);
+      let matches = [];
+    arr.forEach(function(value){
+        // run thourgh winCombo subArray and 
         // this might need to keep track of the the three to make sure all are present
-        playerScore.forEach(function(item, index){
+        playerScore.forEach(function(move){
             //forEach index make sure each item in the subArray
             // check that it is present in the playerCombo
-            
+            if (move === value) {
+                matches.push(true);
+                console.log('matches.length:', matches.length)
+            }
+            if (matches.length === 3) {
+                isWinning = true;
+                return console.log('isWinning:', isWinning);
+            }
         })
     })
-  }
-  return isWinning
-}
-// let winArray = Object.values(winCombo[idx]);
-//loop over arrays within the arrays
-// for (let i = 0; i < winArray.length; i++) {
-// for (let i = 0; i < winCombo[idx].length; i++) {
-//return subarray that matches values of playWin
-//         playWin.some(function(i) {
-//         if (winArray[i]) {
-//         // if (playWin[i] === winArray[i]) {
-//             renderWinMessage(playerScore);
-//             return console.log('true') ;
-//         }
-//         else { return console.log('false')
-//     }})}}};
-// function renderWinMessage(playerScore) {
-//     console.log('is this working from winMsg')
-//      if (playerScore === playerXScore) {
-//         turnEl.innerHTML = `Player X is the winner!`;
-//      } if (playerScore === playerOScore) {
-//         turnEl.innerHTML = `Player O is the winner!`;
-// } return }
+    if (isWinning === true) {
+      return renderWinMessage(playerScore);
+    } else {
+      return false;
+    }
+  })
+};
+function renderWinMessage(playerScore) {
+    console.log('is this working from winMsg')
+     if (playerScore === playerXScore) {
+         console.log('winner: player x');
+        turnEl.innerHTML = `Player X is the winner!`;
+     } if (playerScore === playerOScore) {
+        console.log('winner: player o')
+        turnEl.innerHTML = `Player O is the winner!`;
+} return }
 // player turn + win + draw game messages
 function renderTurnMessage() {
   if (playerXScore.length > playerOScore.length) {
@@ -112,7 +111,7 @@ function renderTurnMessage() {
   } else if (playCount.length === max_number_plays) {
     turnEl.innerHTML = `It's a draw!`;
   }
-  return;
+
 }
 // initialize gameboard // replay button clears the gameboard
 function init() {
@@ -125,4 +124,4 @@ function init() {
     box.textContent = EMPTY;
   });
   renderTurnMessage();
-}
+} 
