@@ -62,21 +62,6 @@ for (let idx = 0; idx < winCombo.length; idx++) {
         } 
         else { return console.log('false')
     }})}}};
-//         }) {
-//             console.log(winCombo[idx], ": true");
-//             return renderWinMessage(playerScore);
-//         } else {
-
-//         }
-//             return console.log('false');
-//         }
-//         // let isMatch = winLoop.every(playCombo);
-//         // check in each subarray of winCombo
-//         // compare with playerCombo for all three values in one idx
-//         // if every value of playCombo can be found in one index of winCombo, then isMatch returns true
-   
-//             }  }
-// };
 function renderWinMessage(playerScore) {
     console.log('is this working from winMsg')
      if (playerScore === playerXScore) {
