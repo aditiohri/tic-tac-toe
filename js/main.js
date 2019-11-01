@@ -45,31 +45,39 @@ function play() {
 };
 // win logic
 function checkWin(playerScore) {
-    //extract last three values of player's score
+    //extract last three values of player's score //might not be === winCombo
     let playCombo = playerScore.slice(playerScore.length-3);
     //turn object into an array
-    let playWin = Object.values(playCombo);
-    console.log(playWin, ': in checkWin before loop')
-    //loop over arrays
+    // let playWin = Object.values(playCombo);
+    // console.log(playWin, ': in checkWin before loop')
+    // //loop over arrays
 for (let idx = 0; idx < winCombo.length; idx++) {
-    let winArray = Object.values(winCombo[idx]);
+    winCombo.some(function(win){
+        win[idx] === playCombo[idx];
+        console.log(win === playCombo, ':comparison')
+        console.log(playCombo, ':playCombo')
+        console.log(playCombo, ':win')
+    }) } }
+    // let winArray = Object.values(winCombo[idx]);
     //loop over arrays within the arrays
-    for (let i = 0; i < winCombo[idx].length; i++) {
+    // for (let i = 0; i < winArray.length; i++) {
+    // for (let i = 0; i < winCombo[idx].length; i++) {
     //return subarray that matches values of playWin
-        playWin.every(function(i) {
-        if (playWin[idx][i] === winArray[i]) {
-            renderWinMessage(playerScore);
-            return console.log('true') ;
-        } 
-        else { return console.log('false')
-    }})}}};
-function renderWinMessage(playerScore) {
-    console.log('is this working from winMsg')
-     if (playerScore === playerXScore) {
-        turnEl.innerHTML = `Player X is the winner!`;
-     } if (playerScore === playerOScore) {
-        turnEl.innerHTML = `Player O is the winner!`; 
-} return }
+//         playWin.some(function(i) {
+//         if (winArray[i]) {
+//         // if (playWin[i] === winArray[i]) {
+//             renderWinMessage(playerScore);
+//             return console.log('true') ;
+//         } 
+//         else { return console.log('false')
+//     }})}}};
+// function renderWinMessage(playerScore) {
+//     console.log('is this working from winMsg')
+//      if (playerScore === playerXScore) {
+//         turnEl.innerHTML = `Player X is the winner!`;
+//      } if (playerScore === playerOScore) {
+//         turnEl.innerHTML = `Player O is the winner!`; 
+// } return }
 // player turn + win + draw game messages
 function renderTurnMessage() {
     if (playerXScore.length > playerOScore.length) {
