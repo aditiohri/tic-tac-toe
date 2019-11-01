@@ -1,29 +1,11 @@
 /*----- constants -----*/
 const max_number_plays = 9;
 const EMPTY = " ";
-const winCombo = [  
-    ["one", "two", "three"],
-    ["four", "five", "six"],
-    ["seven", "eight", "nine"],
-    ["one", "four", "seven"],
-    ["two", "five", "eight"],
-    ["three", "six", "nine"],
-    ["one", "five", "nine"],
-    ["three", "five", "seven"],
- ];
-
+const winCombo = [  ["one", "two", "three"], ["four", "five", "six"], ["seven", "eight", "nine"], ["one", "four", "seven"], ["two", "five", "eight"], ["three", "six", "nine"], ["one", "five", "nine"], ["three", "five", "seven"] ];
 const playerO = "O";
 const playerX = "X";
-
 /*----- app's state (variables) -----*/
-
-let playCount = []; 
-let playCombo = []; 
-let playerXScore = []; 
-let playerOScore = [];
-let playSpace = [];
-
-
+let playCount = []; let playCombo = []; let playerXScore = [];let playerOScore = []; let playSpace = [];
 /*----- cached element references -----*/
 let message = document.getElementById('message');
 let turn = document.getElementById('turn');
@@ -31,28 +13,19 @@ let td = document.querySelectorAll('td');
 let gameBoard = document.getElementById('tictactoe');
 let turnEl = document.getElementById('turn');
 let replayButton = document.getElementById('replay');
-
-
 /*----- event listeners -----*/
-
-// document.getElementById('tictactoe')
-//     
 gameBoard.addEventListener('click', handleTDClick);
 replayButton.addEventListener('click', init);
-
-    
 /*----- functions -----*/
 //initialize game variables and board
 init();
-
-// when gameboard event listener is activated
+// handles click, when gameboard event listener is activated
 function handleTDClick(evt) {
    if (evt.target.tagName !== "TD") return;
     playSpace = evt.target;
     playCount.push(playSpace);
     play();
 }
-
 // play as X or O
 function play() {
     if (playSpace.textContent === ("X") || (playSpace.textContent === ("O"))) {
@@ -61,19 +34,21 @@ function play() {
         playSpace.textContent = playerX;
         playerXScore.push(playSpace.id)
         console.log(playerXScore)
-        if (playCount.length > 3) checkWin(playerXScore);
+        if (playCount.length > 4) checkWin(playerXScore);
     } else if (playCount.length % 2 === 0) {
         playSpace.textContent = playerO;
         playerOScore.push(playSpace.id)
         console.log(playerOScore)
-        if (playCount.length > 3) checkWin(playerOScore);
+        if (playCount.length > 4) checkWin(playerOScore);
     } 
     renderTurnMessage();   
 };
-
+// win logic
 function checkWin(playerScore) {
 for (let idx = 0; idx < winCombo.length; idx++) {
     for (let i = 0; i < winCombo[idx].length; i++) {
+        playCombo = 
+        // last three elements in playerScore
         let isMatch = playerScore.includes(winCombo[idx][i]);
         // check in each subarray of winCombo
         // compare with playerScore
@@ -85,12 +60,9 @@ for (let idx = 0; idx < winCombo.length; idx++) {
         } if (isMatch && playSpace.textContent === playerO) {
             turnEl.innerHTML = `Player O is the winner!`;   
     } else { return }
-
     }
 }};
-
-
-    // alternating message consistent with player
+// player turn + win + draw game messages
 function renderTurnMessage() {
     if (playerXScore.length > playerOScore.length) {
         turnEl.innerHTML = `Your turn: <br> Player O` 
@@ -101,9 +73,8 @@ function renderTurnMessage() {
     } else if (playCount.length === max_number_plays) {
         turnEl.innerHTML = `It's a draw!`
     }
-    return
-} 
-        
+    return;
+};      
 // initialize gameboard // replay button clears the gameboard
 function init() {
     playCount = []; 
