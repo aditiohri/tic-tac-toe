@@ -52,11 +52,12 @@ function checkWin(playerScore) {
     console.log(playWin, ': in checkWin before loop')
     //loop over arrays
 for (let idx = 0; idx < winCombo.length; idx++) {
+    let winArray = Object.values(winCombo[idx]);
     //loop over arrays within the arrays
     for (let i = 0; i < winCombo[idx].length; i++) {
     //return subarray that matches values of playWin
         playWin.every(function(i) {
-        if (playWin[idx][i] === winCombo[idx][i]) {
+        if (playWin[idx][i] === winArray[i]) {
             renderWinMessage(playerScore);
             return console.log('true') ;
         } 
