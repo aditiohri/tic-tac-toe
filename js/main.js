@@ -33,34 +33,57 @@ function play() {
     } else if (playCount.length % 2 === 1) {
         playSpace.textContent = playerX;
         playerXScore.push(playSpace.id)
-        console.log(playerXScore)
+        // console.log(playerXScore)
         if (playCount.length > 4) checkWin(playerXScore);
     } else if (playCount.length % 2 === 0) {
         playSpace.textContent = playerO;
         playerOScore.push(playSpace.id)
-        console.log(playerOScore)
+        // console.log(playerOScore)
         if (playCount.length > 4) checkWin(playerOScore);
     } 
     renderTurnMessage();   
 };
 // win logic
 function checkWin(playerScore) {
+    //extract last three values of player's score
+    let playCombo = playerScore.slice(playerScore.length-3);
+    //turn object into an array
+    let playWin = Object.values(playCombo);
+    console.log(playWin, ': in checkWin before loop')
+    //loop over arrays
 for (let idx = 0; idx < winCombo.length; idx++) {
+    //loop over arrays within the arrays
     for (let i = 0; i < winCombo[idx].length; i++) {
-        let playCombo = playerScore.slice(playerScore.length-3);
-        let isMatch = playCombo.includes(winCombo[idx++][i++]);
-        // check in each subarray of winCombo
-        // compare with playerCombo for all three values in one idx
-        // if every value of playCombo can be found in one index of winCombo, then isMatch returns true
-        console.log(isMatch);
-        console.log(winCombo[idx][i]);
-        if (isMatch && playSpace.textContent === playerX) {
-            turnEl.innerHTML = `Player X is the winner!`;
-        } if (isMatch && playSpace.textContent === playerO) {
-            turnEl.innerHTML = `Player O is the winner!`;   
-    } else { return }
-    }
-}};
+    //return subarray that matches values of playWin
+        playWin.every(function(i) {
+        if (playWin[idx][i] === winCombo[idx][i]) {
+            renderWinMessage(playerScore);
+            return console.log('true') ;
+        } 
+        else { return console.log('false')
+    }})}}};
+//         }) {
+//             console.log(winCombo[idx], ": true");
+//             return renderWinMessage(playerScore);
+//         } else {
+
+//         }
+//             return console.log('false');
+//         }
+//         // let isMatch = winLoop.every(playCombo);
+//         // check in each subarray of winCombo
+//         // compare with playerCombo for all three values in one idx
+//         // if every value of playCombo can be found in one index of winCombo, then isMatch returns true
+   
+//             }  }
+// };
+function renderWinMessage(playerScore) {
+    console.log('is this working from winMsg')
+     if (playerScore === playerXScore) {
+        turnEl.innerHTML = `Player X is the winner!`;
+     } if (playerScore === playerOScore) {
+        turnEl.innerHTML = `Player O is the winner!`; 
+} return }
 // player turn + win + draw game messages
 function renderTurnMessage() {
     if (playerXScore.length > playerOScore.length) {
