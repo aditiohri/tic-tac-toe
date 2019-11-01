@@ -21,7 +21,6 @@ let playCount = [];
 let playCombo = []; 
 let playerXScore = []; 
 let playerOScore = [];
-let playId = [];
 let playSpace = [];
 
 
@@ -61,30 +60,34 @@ function play() {
     } else if (playCount.length % 2 === 1) {
         playSpace.textContent = playerX;
         playerXScore.push(playSpace.id)
-        checkWin(playerXScore);
+        console.log(playerXScore)
+        if (playCount.length > 3) checkWin(playerXScore);
     } else if (playCount.length % 2 === 0) {
         playSpace.textContent = playerO;
         playerOScore.push(playSpace.id)
-        checkWin(playerOScore);
-    } renderTurnMessage();   
+        console.log(playerOScore)
+        if (playCount.length > 3) checkWin(playerOScore);
+    } 
+    renderTurnMessage();   
 };
 
 function checkWin(playerScore) {
-if (playCount.length > 2) {
-    for (let idx = 0; idx < winCombo.length; i++) {
-        for (let i = 0; i < winCombo[idx].length; i++)
-            if (playerScore.includes(winCombo[idx][i])) {
-            console.log('ran' +i);
-            winMsg();
-        } else { return }
+for (let idx = 0; idx < winCombo.length; idx++) {
+    for (let i = 0; i < winCombo[idx].length; i++) {
+        let isMatch = playerScore.includes(winCombo[idx][i]);
+        // check in each subarray of winCombo
+        // compare with playerScore
+        // do the last three plays in playerScore include three of the subarray strings from the same subarray?
+        console.log(isMatch);
+        console.log(winCombo[idx][i]);
+        if (isMatch && playSpace.textContent === playerX) {
+            turnEl.innerHTML = `Player X is the winner!`;
+        } if (isMatch && playSpace.textContent === playerO) {
+            turnEl.innerHTML = `Player O is the winner!`;   
+    } else { return }
+
     }
-}
-};
-    //look through the winCombo arrays 
-    //check each array to see if playerXScore incldues the items of the arrays
-    //check above for playerOScore too
-    //if matches print win message for winning player
-    // cannot strictly compare array //flatmap //mapfilter //reduce //check arrays lab
+}};
 
 
     // alternating message consistent with player
@@ -100,27 +103,13 @@ function renderTurnMessage() {
     }
     return
 } 
-
-//displays winning message
-function winMsg() {
-    if (playerOScore.length > playerXScore.length) {
-        turnEl.innerHTML = `Player O is the winner!`
-    }
-    if (playerXScore.length > playerOScore.length) {
-        turnEl.innerHTML = `Player X is the winner!`
-    }
-    return
-}
-
         
-// initialize gameboard
-// replay button clears the gameboard
+// initialize gameboard // replay button clears the gameboard
 function init() {
     playCount = []; 
     playCombo = []; 
     playerXScore = []; 
     playerOScore = [];
-    playId = [];
     playSpace = [];
     td.forEach(function(box) {
         box.textContent = EMPTY;
